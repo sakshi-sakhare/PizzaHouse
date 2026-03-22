@@ -1,0 +1,106 @@
+PIZZAHOUSE - BUILD AND RUN INSTRUCTIONS
+=====================================
+
+PROJECT CONFIGURATION:
+- Java Version: 11 (compatible with Java 11+)
+- Tomcat Version: 10.1 (Jakarta EE 6.0)
+- Build Tool: Maven 3.8+
+- MySQL Database Required
+
+PREREQUISITES:
+1. Install Java 11 or higher
+2. Install Maven 3.8 or higher
+3. Install MySQL Server
+4. Create database and tables
+
+DATABASE SETUP:
+1. Create database:
+   CREATE DATABASE pizzahouse_db;
+
+2. Create tables:
+   USE pizzahouse_db;
+   
+   CREATE TABLE users (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL,
+       email VARCHAR(100) UNIQUE NOT NULL,
+       password VARCHAR(100) NOT NULL,
+       phone VARCHAR(20),
+       address TEXT,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+
+   CREATE TABLE pizzas (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL,
+       description TEXT,
+       price DOUBLE NOT NULL,
+       category VARCHAR(50),
+       image_url VARCHAR(255),
+       is_deal BOOLEAN DEFAULT FALSE,
+       deal_price DOUBLE,
+       deal_percent INT,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+
+   CREATE TABLE orders (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       order_number VARCHAR(50) UNIQUE NOT NULL,
+       user_id INT NOT NULL,
+       pizza_id INT NOT NULL,
+       pizza_name VARCHAR(100),
+       quantity INT,
+       total_amount DOUBLE,
+       order_status VARCHAR(50) DEFAULT 'PENDING',
+       payment_status VARCHAR(50) DEFAULT 'UNPAID',
+       delivery_address TEXT,
+       phone VARCHAR(20),
+       order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       FOREIGN KEY (user_id) REFERENCES users(id),
+       FOREIGN KEY (pizza_id) REFERENCES pizzas(id)
+   );
+
+   CREATE TABLE contacts (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL,
+       email VARCHAR(100) NOT NULL,
+       phone VARCHAR(20),
+       message TEXT,
+       submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+
+BUILD INSTRUCTIONS:
+1. Open terminal/cmd in project root directory
+2. Run: mvn clean package
+3. WAR file will be created in target/ folder as: pizzahouse.war
+
+DEPLOYMENT TO TOMCAT 10.1:
+1. Copy pizzahouse.war to TOMCAT_HOME/webapps/
+2. Tomcat will auto-extract the WAR file
+3. Access application at: http://localhost:8080/pizzahouse
+
+PROJECT STRUCTURE:
+- src/main/java/com/pizzahouse/dao/        - Database access objects
+- src/main/java/com/pizzahouse/model/      - Data models
+- src/main/java/com/pizzahouse/servlet/    - HTTP servlets
+- src/main/webapp/                         - JSP pages and static files
+- pom.xml                                  - Maven configuration
+- .classpath, .project                     - Eclipse IDE files
+
+FEATURES:
+✓ User Registration and Login
+✓ Pizza Menu Browsing
+✓ Order Management
+✓ Deals/Discounts Support
+✓ Contact Form
+✓ Session Management
+✓ Jakarta EE 6.0 Compatible (Tomcat 10.1+)
+
+CONFIGURATION:
+- Database: src/main/java/com/pizzahouse/dao/DBConnection.java
+  - URL: jdbc:mysql://localhost:3306/pizzahouse_db
+  - Username: root
+  - Password: yogesh
+  (Update these values as needed)
+
+SESSION TIMEOUT: 30 minutes

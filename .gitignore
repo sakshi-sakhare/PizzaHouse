@@ -1,0 +1,67 @@
+# Maven
+target/
+dependency-reduced-pom.xml
+
+# IDE - Eclipse
+.settings/
+.classpath
+.project
+*.pydevproject
+.metadata
+local.properties
+.externalToolBuilders/
+
+# IDE - IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# IDE - VS Code
+.vscode/
+.code-workspace
+
+# IDE - NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Operating System
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+
+# Node (if using any node-based tools)
+node_modules/
+npm-debug.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
+
+# WAR files (except in target)
+/*.war
+
+# Misc
+.clover/
+.sonar/
